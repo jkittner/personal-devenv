@@ -14,7 +14,7 @@
 1. right click `autorun.sh` -> `Run as a Program`
 1. enter `sudo` password in prompt
 1. reboot the machine
-1. click `Devices` -> `Drag and Drop` select `bidirectional`
+1. click `Devices` -> `Shared Clipboard` select `bidirectional`
 1. copy your ssh keys that you're using for GitHub over to `~/ssh`
 
    - If you don't have one:
@@ -41,13 +41,19 @@
    git clone git@github.com:theendlessriver13/personal-devenv
    cd personal-devenv
    ```
+   or via https
+   ```bash
+   cd /tmp
+   git clone https://github.com/theendlessriver13/personal-devenv
+   cd personal-devenv
+   ```
 1. create a virtual environment in the cloned repo
    ```bash
-   wget https://bootstrap.pypa.io/virtualenv.pyz
+   wget -q https://bootstrap.pypa.io/virtualenv.pyz
    python3 virtualenv.pyz venv
    . venv/bin/activate
    ```
-1. install requirements for ansible
+1. install requirements for Ansible
    ```bash
    pip install -r requirements.txt
    ```
@@ -55,3 +61,4 @@
    ```bash
    ansible-playbook playbooks/jammy.yaml -i hosts.yaml -K
    ```
+1. restart the machine, so the `docker` group is recognized
