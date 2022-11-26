@@ -1,0 +1,71 @@
+- name: Create workspace directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user_id }}/workspace"
+    state: directory
+    mode: "0755"
+
+- name: Install python3-psutil package
+  ansible.builtin.apt:
+    pkg:
+      - python3-psutil
+    state: latest
+    update_cache: true
+    install_recommends: false
+  become: true
+
+- name: Set battery to percent
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+
+- name: Set side bar elements
+  dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['firefox_firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop']"
+
+- name: Set dark color scheme
+  dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+
+- name: Do not lock the screen when idle
+  dconf:
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: 0
+
+- name: No locking on screensaver
+  dconf:
+    key: "/org/gnome/desktop/screensaver/lock-enable"
+    value: "false"
+
+- name: Do not sleep on battery
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
+    value: "'nothing'"
+
+- name: Do not show home folder
+  dconf:
+    key: "/org/gnome/shell/extensions/ding/show-home"
+    value: "false"
+
+- name: Uninstall python3-psutil package
+  ansible.builtin.apt:
+    pkg:
+      - python3-psutil
+    state: absent
+  become: true
+
+- name: Remove useless packages from the cache
+  ansible.builtin.apt:
+    autoclean: true
+  become: true
+
+- name: Remove dependencies that are no longer required
+  ansible.builtin.apt:
+    autoremove: true
+  become: true
+
+- name: Run the equivalent of "apt-get clean" as a separate step
+  ansible.builtin.apt:
+    clean: true
+  become: true

@@ -1,0 +1,69 @@
+- name: Add deadsnakes ppa
+  ansible.builtin.apt_repository:
+    repo: ppa:deadsnakes/ppa
+    state: present
+  become: true
+
+- name: Install different python versions
+  ansible.builtin.apt:
+    pkg:
+      - python3.7-dev
+      - python3.7-distutils
+      - python3.8-dev
+      - python3.8-distutils
+      - python3.9-dev
+      - python3.9-distutils
+      - python3.11-dev
+      - python3.11-distutils
+    state: latest
+    update_cache: true
+    install_recommends: false
+  become: true
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user_id }}/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - bin
+
+- name: Bootstrap a virtualenv
+  ansible.builtin.get_url:
+    url: https://bootstrap.pypa.io/virtualenv.pyz
+    dest: /tmp/virtualenv.pyz
+    mode: "0644"
+
+- name: Create virtualenv in opt
+  ansible.builtin.command:
+    argv:
+      - python3
+      - /tmp/virtualenv.pyz
+      - /home/{{ ansible_user_id }}/opt/venv
+    creates: /home/{{ ansible_user_id }}/opt
+
+- name: Install some packages via pip
+  ansible.builtin.pip:
+    name:
+      - babi
+      - docker-compose
+      - flake8
+      - pre-commit
+      - tox
+      - twine
+      - virtualenv
+    virtualenv: /home/{{ ansible_user_id }}/opt/venv
+
+- name: Symlink executables to bin
+  ansible.builtin.file:
+    src: /home/{{ ansible_user_id }}/opt/venv/bin/{{ item }}
+    dest: /home/{{ ansible_user_id }}/bin/{{ item }}
+    state: link
+  loop:
+    - babi
+    - docker-compose
+    - flake8
+    - pre-commit
+    - tox
+    - twine
+    - virtualenv

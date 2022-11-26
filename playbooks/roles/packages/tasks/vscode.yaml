@@ -1,0 +1,20 @@
+- name: Add vscode GPG apt key
+  ansible.builtin.apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: true
+
+- name: Add vscode repo
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.microsoft.com/repos/code stable main
+    state: present
+  become: true
+
+- name: Install vscode
+  ansible.builtin.apt:
+    pkg:
+      - code
+    state: latest
+    update_cache: true
+    install_recommends: false
+  become: true

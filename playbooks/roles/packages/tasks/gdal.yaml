@@ -1,0 +1,15 @@
+- name: Add ubuntugis unstable ppa
+  ansible.builtin.apt_repository:
+    repo: ppa:ubuntugis/ubuntugis-unstable
+    state: present
+  become: true
+
+- name: Install gdal
+  ansible.builtin.apt:
+    pkg:
+      - libgdal-dev
+      - gdal-bin
+    state: latest
+    update_cache: true
+    install_recommends: false
+  become: true

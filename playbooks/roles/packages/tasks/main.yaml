@@ -1,0 +1,28 @@
+- name: Install system packages
+  ansible.builtin.apt:
+    pkg:
+      - curl
+      - dos2unix
+      - git
+      - graphviz
+      - htop
+      - jq
+      - ncdu
+      - net-tools
+      - sqlite3
+      - tree
+      - wkhtmltopdf
+      - xclip
+    state: latest
+    update_cache: true
+    install_recommends: false
+  become: true
+
+- name: Install Python
+  ansible.builtin.include_tasks: python.yaml
+- name: Install VsCode
+  ansible.builtin.include_tasks: vscode.yaml
+- name: Install Docker
+  ansible.builtin.include_tasks: docker.yaml
+- name: Install Gdal
+  ansible.builtin.include_tasks: gdal.yaml

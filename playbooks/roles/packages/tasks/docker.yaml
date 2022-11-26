@@ -1,0 +1,29 @@
+- name: Add docker GPG apt key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  become: true
+
+- name: Add docker repo
+  ansible.builtin.apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu jammy stable
+    state: present
+  become: true
+
+- name: Install docker
+  ansible.builtin.apt:
+    pkg:
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+    state: latest
+    update_cache: true
+    install_recommends: false
+  become: true
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true
+  become: true
