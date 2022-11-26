@@ -1,3 +1,5 @@
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/theendlessriver13/personal-devenv/main.svg)](https://results.pre-commit.ci/latest/github/theendlessriver13/personal-devenv/main)
+
 # personal-devenv
 
 1. create new virtual machine using VirtualBox
