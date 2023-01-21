@@ -1,4 +1,4 @@
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/theendlessriver13/personal-devenv/main.svg)](https://results.pre-commit.ci/latest/github/theendlessriver13/personal-devenv/main)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/jkittner/personal-devenv/main.svg)](https://results.pre-commit.ci/latest/github/jkittner/personal-devenv/main)
 
 # personal-devenv
 
@@ -40,13 +40,13 @@
 1. clone the repository where the Ansible playbooks are to `/tmp`
    ```bash
    cd /tmp
-   git clone git@github.com:theendlessriver13/personal-devenv
+   git clone git@github.com:jkittner/personal-devenv
    cd personal-devenv
    ```
    or via https
    ```bash
    cd /tmp
-   git clone https://github.com/theendlessriver13/personal-devenv
+   git clone https://github.com/jkittner/personal-devenv
    cd personal-devenv
    ```
 1. create a virtual environment in the cloned repo
