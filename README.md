@@ -9,7 +9,7 @@
    ```bash
    sudo apt update
    sudo apt upgrade -y
-   sudo apt install gcc make perl  -y --no-install-recommends
+   sudo apt install gcc make perl bzip2 -y --no-install-recommends
    ```
 1. click `Devices` -> `insert guest additions`
 1. click on CD-symbol
